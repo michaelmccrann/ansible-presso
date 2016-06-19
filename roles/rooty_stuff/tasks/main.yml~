@@ -1,0 +1,32 @@
+- name: Create some standard groups
+  group: 
+     name={{ item.name }}
+     gid={{ item.gid }}
+     state=present
+  with_items:
+     - { name: common, gid: 4000}
+     - { name: tomcat, gid: 4001}
+     
+- name: Create ssh users
+  user: 
+     name=remote_user 
+     comment="This user can ssh into servers. Low priviliges" 
+     uid=3000
+     group=user
+
+- name: Create local users account
+  user: 
+     name={{ item.user_name }}
+     uid={{ item.uid }}
+     group={{ item.group }}
+  with_items:
+    - { user_name: uid: 4001, tc-app1, group: tomcat}
+    - { user_name: uid: 4002, tc-app2, group: tomcat}
+     
+
+- name: Add to sudoers so that remote_user can sudo to local user accounts 
+
+- name: Copy key file of remote_user
+
+- name: Copy hosts file
+

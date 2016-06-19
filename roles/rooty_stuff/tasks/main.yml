@@ -1,0 +1,48 @@
+- name: Install additional rpms
+  dnf: name={{ item }} state=latest
+  with_items:
+      - libselinux-python
+
+#- name: Update sshd_config so that they user config files are in /etc/sshd
+#  replace: 
+#      dest=/etc/ssh/sshd_config
+#      regexp='AuthorizedKeysFile\s*.ssh/authorized_keys'
+#      replace='AuthorizedKeysFile  /etc/ssh/authorized_keys/%u'
+      
+- name: Create some standard groups
+  group: 
+     name={{ item.name }}
+     gid={{ item.gid }}
+     state=present
+  with_items:
+     - { name: common, gid: 5000}
+     - { name: tomcat, gid: 5001}
+     
+- name: Create ssh users
+  user: 
+     name=remote_user 
+     comment="This user can ssh into servers. Low priviliges" 
+     uid=3000
+
+- name: Create local users account
+  user: 
+     name={{ item.user_name }}
+     uid={{ item.uid }}
+     group=tomcat
+     groups=common
+  with_items:
+    - { user_name: tc-app1, uid: 4001 }
+    - { user_name: tc-app2, uid: 4002 } 
+     
+
+- name: Add to sudoers so that remote_user can sudo to local user accounts 
+  copy: 
+     src=tomcat.sudoers
+     dest=/etc/sudoers.d
+
+- name: Copy hosts file
+  copy:
+     src=/etc/hosts
+     dest=/etc/hosts
+
+#- name: Copy key file of remote_user
