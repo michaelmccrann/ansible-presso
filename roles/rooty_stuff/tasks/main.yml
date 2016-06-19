@@ -15,7 +15,7 @@
      gid={{ item.gid }}
      state=present 
   with_items:
-     - { name: common, gid: 5000}
+     - { name: common, gid: 5000} 
      - { name: tomcat, gid: 5001}
      
 - name: Create ssh users
