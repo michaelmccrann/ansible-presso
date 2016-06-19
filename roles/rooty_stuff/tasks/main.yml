@@ -13,7 +13,7 @@
   group: 
      name={{ item.name }}
      gid={{ item.gid }}
-     state=present
+     state=present 
   with_items:
      - { name: common, gid: 5000}
      - { name: tomcat, gid: 5001}
