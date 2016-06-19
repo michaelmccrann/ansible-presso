@@ -19,7 +19,7 @@
      - { name: tomcat, gid: 5001}
      
 - name: Create ssh users
-  user: 
+  user:  
      name=remote_user 
      comment="This user can ssh into servers. Low priviliges" 
      uid=3000
