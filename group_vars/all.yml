@@ -14,9 +14,9 @@ files:
    tomcat_install_tar: apache-tomcat-8.0.36.tar.gz
 
 users:
-   tomcat_home: { name: tc-user, uid: 4001, gid: 4001 }
-   tomcat_app1: { name: tc-app1, uid: 4002, gid: 4002 } 
-   tomcat_app2: { name: tc-app2, uid: 4003, gid: 4003 } 
+   tomcat_home: { user: tc-user, uid: 4001, gid: 4001 }
+   tomcat_app1: { user: tc-app1, uid: 4002, gid: 4002 } 
+   tomcat_app2: { user: tc-app2, uid: 4003, gid: 4003 } 
 
 tomcat_instances
    tc-app1:
