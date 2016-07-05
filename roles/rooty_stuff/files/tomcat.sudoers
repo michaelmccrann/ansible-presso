@@ -1,7 +1,7 @@
 ##
 # Runas alias specification
 ##
-Runas_Alias    TC_USERS = tc-app1, tc-app2
+Runas_Alias    TC_USERS = tc-user, tc-app1, tc-app2
 
 # remote_user can sudo to any tomcat user
 remote_user    ALL=(TC_USERS) NOPASSWD: ALL
