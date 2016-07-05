@@ -1,0 +1,12 @@
+---
+-  hosts:            all
+   remote_user:      remote_user
+   become:           true
+   become_user:      "{{ users.tomcat_home.name }}"
+   gather_facts:     false
+   roles:
+     - { role: tomcat-home }  
+      
+   tasks:
+      - debug: var=users.tomcat_home.name
+   
