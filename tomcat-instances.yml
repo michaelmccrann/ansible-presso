@@ -2,10 +2,10 @@
 -  hosts:            all
    remote_user:      remote_user
    become:           true
-   become_user:      "{{ users.tomcat_app1.name }}
+   become_user:      "{{ users.tomcat_app1.name }}"
    gather_facts:     false
    vars:
-       instance: {{ tomcat_instances.tc-app1 }}
+       instance: "{{ tomcat_instances.tc-app1 }}"
    roles:
      - { role: tomcat-instances } 
           
