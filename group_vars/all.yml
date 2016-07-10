@@ -12,12 +12,6 @@ dirs:
 files:
    tomcat_install_tar: apache-tomcat-8.0.36.tar.gz
 
-applictions:
-    wars:
-        app1: app1-{{ versions.tomcat.app1 }}
-        app2: app2-{{ versions.tomcat.app2 }}
-        app3: app3-{{ versions.tomcat.app3 }}
-
 users:
    tomcat_home: { name: tc-user, uid: 4001, gid: 4001 }
    tomcat_app1: { name: tc-app1, uid: 4002, gid: 4002 }
@@ -26,22 +20,20 @@ users:
 apps:
 
    app1:
-      context_root:  oranges
-      war:           app1.war
-      version:       "{{ versions.app1 }}"
+      context_root:           oranges
+      war:                    "app1-{{ versions.app1 }}.war"
+
       context_parameters:
          - { description: 'WS URL',       name: WS_URL,     value: "{{ web_services_url }}" }
          - { description: 'Another one',  name: team,       value: 'Man United' }
 
    app2:
-      context_root:  apples
-      war:           app2.war
-      version:       "{{ versions.app2 }}"
+      context_root:           apples
+      war:                    "app2-{{ versions.app2 }}.war"
 
    app3:
-      context_root: pears
-      war: app3.war
-      version: "{{ versions.app3 }}"
+      context_root:           pears
+      war:                    "app3-{{ versions.app3 }}.war"
       context_parameters:
          - { description: 'WS URL', name: WS_URL, value: "{{ web_services_url }}" }
 

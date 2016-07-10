@@ -1,4 +1,4 @@
-export CATALINA_HOME="{{ catalina_home }}"
+export CATALINA_HOME="{{ dirs.catalina_home }}"
 export CATALINA_BASE="{{ base_dirs.tomcat }}/{{ instance.name }}"
 
 export PATH="$CATALINA_HOME/bin:$PATH"
