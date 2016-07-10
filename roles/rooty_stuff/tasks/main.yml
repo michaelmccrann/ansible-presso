@@ -1,36 +1,37 @@
 - name: Install additional rpms
   dnf: name={{ item }} state=latest
   with_items:
-      - libselinux-python 
+      - libselinux-python
+      - java-1.8.0-openjdk
 
 #- name: Update sshd_config so that they user config files are in /etc/sshd
-#  replace: 
+#  replace:
 #      dest=/etc/ssh/sshd_config
 #      regexp='AuthorizedKeysFile\s*.ssh/authorized_keys'
 #      replace='AuthorizedKeysFile  /etc/ssh/authorized_keys/%u'
-      
+
 - name: Create some standard groups
-  group: 
+  group:
      name={{ item.name }}
      gid={{ item.gid }}
-     state=present 
+     state=present
   with_items:
-     - { name: common, gid: 5000} 
+     - { name: common, gid: 5000}
      - { name: tomcat, gid: 5001}
-     
+
 - name: Create ssh users
-  user:  
-     name=remote_user 
-     comment="This user can ssh into servers. Low priviliges" 
+  user:
+     name=remote_user
+     comment="This user can ssh into servers. Low priviliges"
      uid=3000
 
-- name: Add to sudoers so that remote_user can sudo to local user accounts 
-  copy: 
+- name: Add to sudoers so that remote_user can sudo to local user accounts
+  copy:
      src=tomcat.sudoers
      dest=/etc/sudoers.d
 
 - name: Create local user groups
-  group: 
+  group:
      name={{ item.value.name }}
      gid={{ item.value.gid }}
      state=present
@@ -38,7 +39,7 @@
 
 
 - name: Create local users account
-  user: 
+  user:
      name={{ item.value.name }}
      uid={{ item.value.uid }}
      group={{ item.value.gid }}
@@ -51,11 +52,12 @@
      dest=/etc/hosts
 
 - name: Create top-level tomcats dir
-  file: 
+  file:
       path="{{ base_dirs.tomcat }}"
-      state=directory 
+      state=directory
       mode="u=rwx,g=rwx,o=rx"
       owner={{ users.tomcat_home.name }}
       group=common
+  tags: [ dirs ]
 
 #- name: Copy key file of remote_user

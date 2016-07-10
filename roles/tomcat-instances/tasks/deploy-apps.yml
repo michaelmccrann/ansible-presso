@@ -4,5 +4,3 @@
 - Copy context path to
   debug: msg="To do"
 
-- name: Copy templated instance env file to home directory
-  template: src={{ item. }} dest="~/{{ instance.name }}.env"

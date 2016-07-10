@@ -1,0 +1,6 @@
+export CATALINA_HOME="{{ base_dirs.tomcat }}/catalina_home/apache-tomcat-{{ versions.tomcat }}"
+export CATALINA_BASE="{{ base_dirs.tomcat }}/{{ instance.name }}"
+
+export PATH="$CATALINA_HOME/bin:$PATH"
+
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.92-4.b14.fc23.x86_64

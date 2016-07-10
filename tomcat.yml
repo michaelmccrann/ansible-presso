@@ -6,8 +6,14 @@
    gather_facts:     false
 
    pre_tasks:
-      - include: roles/tomcat-common/unarchive.yml
       - debug: var=users.tomcat_home.name
+      - debug: var=files
+      - debug: var=base_dirs
+      - debug: var=dirs.tomcat_tars
+      - debug: var=dirs
+      - debug: var=versions
+      - include: roles/tomcat-common/tasks/copy_archive.yml
+
 
    roles:
       - { role: tomcat-home }

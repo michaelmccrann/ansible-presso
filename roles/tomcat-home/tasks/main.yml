@@ -1,9 +1,12 @@
+- name: Create the catalina base home directory
+  file: path="{{ base_dirs.tomcat }}/catalina_home" state=directory
+
 - name: unpack the install tar
   unarchive:
      copy=no
-     src={{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}
-     dest={{ base_dirs.tomcat }}
-     creates={{ dirs.catalina_home }}
+     src="{{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}"
+     dest="{{ base_dirs.tomcat }}/catalina_home"
+     creates="{{ dirs.catalina_home }}/bin"
   tags: [ install ]
 
 - name: Remove file not needed in CATALINA_HOME

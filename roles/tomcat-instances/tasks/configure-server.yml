@@ -1,29 +1,33 @@
-- name: Create Tomcat instance directory
-  file:  path={{ tomcat_instances }}/{{ instance.name }} state=directory
-
 - name: Unpack the Tomcat install tar
   unarchive:
      copy=no
-     src={{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}
-     dest={{ dirs.tomcat_instances }}{{ instance.name }}
-     extra_opts="--strip 1"
+     src="{{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}"
+     dest="{{ base_dirs.tomcat }}"
+     creates="{{ base_dirs.tomcat }}/{{ instance.name }}/logs"
+
+- name: Rename tomcat directory just unarchived
+  command: mv "{{ base_dirs.tomcat }}/apache-tomcat-{{ versions.tomcat }}" "{{ base_dirs.tomcat }}/{{ instance.name }}"
+  args:
+      creates: "{{ base_dirs.tomcat }}/{{ instance.name }}/logs"
 
 - name: Remove file not needed in the instance
   file:
      state=absent
-     path={{ tomcat_instances }}/{{ instance.name }}/{{ item }}
-  with_items: [bin, lib, conf, logs, temp, webapps/examples, work]
+     path="{{ base_dirs.tomcat }}/{{ instance.name }}/{{ item }}"
+  with_items: [bin, lib, webapps/examples, webapps/ROOT, webapps/docs, webapps/host-manager ]
 
 - name: Create the instance apps dir
-  file: path={{ tomcat_instances }}/{{ instance.name }}/apps state=directory
+  file: path="{{ base_dirs.tomcat }}/{{ instance.name }}/apps" state=directory
+
+- name: Copy templated instance env file to home directory
+  template: src=env_template.txt dest="~/{{ instance.name }}.env"
 
 - name: Copy the templates files to instance conf dir
-  template: src={{ item }} dest="{{ tomcat_instances }}/{{ instance.name }}/conf"
+  template: src="{{ item }}" dest="{{ base_dirs.tomcat }}/{{ instance.name }}/conf"
   with_items:
       - server.xml
       - tomcat-users.xml
 
-- name: Copy templated instance env file to home directory
-  template: src={{ item. }} dest="~/{{ instance.name }}.env"
+
 
 

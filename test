@@ -1,0 +1,5 @@
+[test]
+tc-tst1
+
+[tc-servers]
+tc-tst1
