@@ -1,0 +1,5 @@
+versions:
+   tomcat:
+      app1: 1.3
+      app2: 1.9
+      app3: 1.68
