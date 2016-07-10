@@ -1,0 +1,6 @@
+versions:
+   app1: 1.46
+   app2: 1.16
+   app3: 1.27
+
+web_services_url: http://ws-test.example.com

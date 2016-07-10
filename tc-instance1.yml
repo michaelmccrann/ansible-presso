@@ -1,0 +1,17 @@
+---
+-  hosts:            tc-servers
+   remote_user:      remote_user
+   become:           true
+   become_user:      "{{ users.tomcat_app1.name }}
+   gather_facts:     false
+   vars:
+       instance: {{ tomcat_instances.instance1 }}
+
+   pre_tasks:
+      - include: roles/tomcat-common/unarchive.yml
+
+   roles:
+     - { role: tomcat-instances }
+
+
+

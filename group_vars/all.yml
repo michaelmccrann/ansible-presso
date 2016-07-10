@@ -1,26 +1,71 @@
 versions:
    tomcat:  8.0.36
-   
+
 base_dirs:
    tomcat: /opt/tomcats
-   software: /home/michael/git/ansible-presso/software
+   software: /home/software
 
 dirs:
    tomcat_tars:      "{{ base_dirs.tomcat }}/install_tars"
-   catalina_home:    "{{ base_dirs.tomcat }}/apache-tomcat-{{ versions.tomcat }}"
-   tomcat_instances:  "{{ base_dirs.tomcat }}/instances"
+   catalina_home:    "{{ base_dirs.tomcat }}/catalina_home/apache-tomcat-{{ versions.tomcat }}"
+   tomcat_instances: "{{ base_dirs.tomcat }}/instances"
 
 files:
    tomcat_install_tar: apache-tomcat-8.0.36.tar.gz
 
 users:
    tomcat_home: { name: tc-user, uid: 4001, gid: 4001 }
-   tomcat_app1: { name: tc-app1, uid: 4002, gid: 4002 } 
-   tomcat_app2: { name: tc-app2, uid: 4003, gid: 4003 } 
+   tomcat_app1: { name: tc-app1, uid: 4002, gid: 4002 }
+   tomcat_app2: { name: tc-app2, uid: 4003, gid: 4003 }
+
+apps:
+
+   app1:
+      context_root:  oranges
+      war:           app1.war
+      version:       {{ versions.app1 }} }
+      context_parameters:
+         - { description: 'WS URL',       name: WS_URL,     value: {{ web_services_url }}
+         - { description: 'Another one':  name: team,       value: 'Man United'
+
+   app2:
+      context_root:  apples
+      war: app2.     war
+      version:       {{ versions.app2 }} }
+
+
+   app3:
+      context_root: pears
+      war: app3.war
+      version: {{ versions.app3 }} }
+      context_parameters:
+         - { description: 'WS URL', name: WS_URL, value: {{ web_services_url }}
 
 tomcat_instances:
-   tc-app1:
-      name: tc-app1
 
-#CATALINA_HOME 
-#CATALINA_BASE	
+   instance1:
+      name: tc1
+      ports:
+         shutdown:   8005
+         http:       8080
+
+      threads:
+         max:
+         spare:
+
+      apps:
+         - {{ apps.app1 }}
+         - {{ apps.app2 }}
+
+   instance2:
+      name: tc2
+      ports:
+         shutdown:   9005
+         http:       9090
+
+      threads:
+         max:
+         spare:
+
+      apps:
+         - {{ apps.app3 }}

@@ -1,24 +1,14 @@
-- name: Create a dir for install tars
-  file:
-      path={{ dirs.tomcat_tars }}
-      state=directory
-      
-- name: Copy install tar to remote server
-  copy:
-      src={{ base_dirs.software }}/{{ files.tomcat_install_tar }}
-      dest={{ dirs.tomcat_tars }}
-  
 - name: unpack the install tar
   unarchive:
      copy=no
      src={{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}
      dest={{ base_dirs.tomcat }}
      creates={{ dirs.catalina_home }}
+  tags: [ install ]
 
 - name: Remove file not needed in CATALINA_HOME
   file:
      state=absent
      path={{ dirs.catalina_home}}/{{ item }}
   with_items: [conf, logs, temp, webapps, work]
-  
-     
+  tags: [ install ]

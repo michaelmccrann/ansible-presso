@@ -1,26 +1,5 @@
-- name: Create a dir for install tars
-  file:
-      path={{ dirs.tomcat_tars }}
-      state=directory
-      
-- name: Copy install tar to remote server
-  copy:
-      src={{ base_dirs.software }}/{{ files.tomcat_install_tar }}
-      dest={{ dirs.tomcat_tars }}
-  
-- name: unpack the install tar
-  unarchive:
-     copy=no
-     src={{ dirs.tomcat_tars }}/{{ files.tomcat_install_tar }}
-     dest={{ dirs.tomcat_instances }}
-     
-- name: Rename the install dir to instance name
-  command: mv {{ tomcat_instances }}/{{ apache-tomcat-{{ versions.tomcat }} {{ dirs.tomcat_instances }}/{{ instance.name }} 
+- include: configure-server.yml
+  tags: [ config ]
 
-- name: Remove file not needed in the instance
-  file:
-     state=absent
-     path={{ tomcat_instances }}/{{ instance.name }}/{{ item }}
-  with_items: [bin, lib, conf, logs, temp, webapps/examples, work]
-
-     
+- include: deploy-apps.yml
+  tags: [ deploy ]

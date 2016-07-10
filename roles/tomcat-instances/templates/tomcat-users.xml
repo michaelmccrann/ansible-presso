@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
+
+   <auth-constraint>
+   
+      <role rolename="manager-script"/>
+      <role rolename="manager-status"/>
+      <role rolename="manager-jmx"/>
+      <role rolename="manager-gui"/>
+  
+      <user username="tomcat" password="{{ passwords.tc.manager }}" roles="manager-script, manager-status, manager-jmx, anager-gui"/>
+      
+   <auth-constraint>
+ 
+</tomcat-users>
