@@ -35,9 +35,8 @@ apps:
 
    app2:
       context_root:  apples
-      war: app2.     war
+      war:           app2.war
       version:       "{{ versions.app2 }}"
-
 
    app3:
       context_root: pears
@@ -55,8 +54,8 @@ tomcat_instances:
          http:       8080
 
       threads:
-         max:
-         spare:
+        max:         300
+        spare:       10
 
       apps:
          - "{{ apps.app1 }}"
@@ -69,8 +68,8 @@ tomcat_instances:
          http:       9090
 
       threads:
-         max:
-         spare:
+         max:        150
+         spare:      4
 
       apps:
          - "{{ apps.app3 }}"

@@ -1,6 +1,9 @@
-- Copy war file to apps dir
-  debug: msg="To do"
+- name: Copy war file to apps dir
+  copy:
+      src="{{ base_dirs.software }}/{{ item.war }}"
+      dest="{{ base_dirs.tomcat }}/{{ instance.name }}/apps"
+  with_items: "{{ instance.apps }}"
 
-- Copy context path to
+- name: Copy context path xml file to app conf dir
   debug: msg="To do"
 

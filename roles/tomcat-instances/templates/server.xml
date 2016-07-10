@@ -18,8 +18,8 @@
 
    <Service name="Catalina">
 
-      <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"maxThreads="{{ instance.threads.max }}" minSpareThreads="{{ instance.threads.spare }}"/>
-      <Connector executor="tomcatThreadPool"port="{{ tc.ports.http " protocol="HTTP/1.1" connectionTimeout="20000"  />
+      <Executor name="tomcatThreadPool" namePrefix="catalina-exec-" maxThreads="{{ instance.threads.max }}" minSpareThreads="{{ instance.threads.spare }}"/>
+      <Connector executor="tomcatThreadPool" port="{{ instance.ports.http }}" protocol="HTTP/1.1" connectionTimeout="20000"  />
 
       <Engine name="Catalina" defaultHost="localhost">
 
