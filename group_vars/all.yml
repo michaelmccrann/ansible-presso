@@ -22,7 +22,6 @@ apps:
    app1:
       context_root:           oranges
       war:                    "app1-{{ versions.app1 }}.war"
-
       context_parameters:
          - { description: 'WS URL',       name: WS_URL,     value: "{{ web_services_url }}" }
          - { description: 'Another one',  name: team,       value: 'Man United' }
@@ -40,6 +39,7 @@ apps:
 tomcat_instances:
 
    instance1:
+
       name: tc1
       ports:
          shutdown:   8005
@@ -54,6 +54,7 @@ tomcat_instances:
          - "{{ apps.app2 }}"
 
    instance2:
+
       name: tc2
       ports:
          shutdown:   9005

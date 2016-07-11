@@ -3,6 +3,7 @@
   with_items:
       - libselinux-python
       - java-1.8.0-openjdk
+      - java-1.8.0-openjdk-devel
 
 #- name: Update sshd_config so that they user config files are in /etc/sshd
 #  replace:

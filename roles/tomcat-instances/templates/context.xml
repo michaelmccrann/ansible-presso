@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Context docBase="../apps/{{ app.context_root" >
+?xml version='1.0' encoding='utf-8'?>
+<Context docBase="../apps/{{ item.war }}>
 
 <WatchedResource>WEB-INF/web.xml</WatchedResource>
 <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
-<% if app.context_parameters is defined %>
-<% for parameters in app.context_parameters %>
+{% if item.context_parameters is defined %}
+{%  for parameter in item.context_parameters %}
    <context-param>
 
       <description>{{ parameter.description }}</description>
@@ -13,7 +13,7 @@
       <param-value>{{ parameter.value }}</param-value>
 
     </context-param>
-< %endfor %>
-< %endif %>
+{% endfor%}
+{% endif %}
 
 </Context>

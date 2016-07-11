@@ -4,6 +4,12 @@
       dest="{{ base_dirs.tomcat }}/{{ instance.name }}/apps"
   with_items: "{{ instance.apps }}"
 
-- name: Copy context path xml file to app conf dir
-  debug: msg="To do"
+- name: Create Catalina localhost directory
+  file: state=directory path="{{ base_dirs.tomcat }}/{{ instance.name }}/conf/Catalina/localhost"
 
+- name: Copy context path xml file to Catalina localhost directory
+  template:
+      src=context.xml
+      dest="{{ base_dirs.tomcat }}/{{ instance.name }}/conf/Catalina/localhost/{{ item.context_root }}.xml"
+  with_items: "{{ instance.apps }}"
+  tags: [ mpo_debug ]
